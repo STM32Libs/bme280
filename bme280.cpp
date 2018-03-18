@@ -98,9 +98,9 @@ void BME280::measure()
         //write the measures byte array into the right variables
         set_all_measures_8(data);
         //process the compensation with the calibration parameters !temperature first as t_fine used by others!
-        comp_T = compensate_T_int32();pc->printf("Temperature:%ld\n",comp_T);
-        comp_P = compensate_P_int64();pc->printf("Pressure:%ld\n",comp_P/256);
-        comp_H = compensate_H_int32();pc->printf("Humidity:%ld\n",comp_H);
+        comp_T = compensate_T_int32();//pc->printf("Temperature:%ld\n",comp_T);
+        comp_P = compensate_P_int64();//pc->printf("Pressure:%ld\n",comp_P/256);
+        comp_H = compensate_H_int32();//pc->printf("Humidity:%ld\n",comp_H);
         
     }
 
@@ -233,3 +233,17 @@ int32_t	BME280::compensate_H_int32()
 	return (uint32_t)(v_x1_u32r>>12);
 }
 
+int32_t BME280::getTemperature()
+{
+    return comp_T;
+}
+
+int32_t BME280::getPressure()
+{
+    return comp_P;
+}
+
+int32_t BME280::getHumidity()
+{
+    return comp_H;
+}

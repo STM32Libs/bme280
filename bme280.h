@@ -37,15 +37,18 @@ class BME280
 {
     public:
         BME280(Serial *l_pc,I2C *l_i2c,uint8_t slave_add = (0x76<<1));
-        void measure();
         bool check_id();
+        void measure();
+        int32_t getTemperature();
+        int32_t getPressure();
+        int32_t getHumidity();
+        bool available;
 
     public:
         uint8_t read_reg(uint8_t reg_add);
         void write_reg(uint8_t reg_add,uint8_t val);
         void read_registers(uint8_t start,uint8_t nb, uint8_t*data);
         void set_calibration();
-        void measure_all();
         uint8_t slave_add;
     private:
 		void set_all_measures_8(uint8_t *data);
@@ -87,7 +90,6 @@ class BME280
 		int32_t		comp_P;
 		int32_t		comp_H;
         //--------------------- vars ---------------------
-        bool available;
         Serial *pc;
         I2C    *i2c;
 
